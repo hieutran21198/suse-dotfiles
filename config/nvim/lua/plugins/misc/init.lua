@@ -42,6 +42,10 @@ local M = {
       lspsaga.setup(opts)
     end,
   },
+  {
+    "ghassan0/telescope-glyph.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+  },
   { "stevearc/dressing.nvim" },
   {
     "ziontee113/icon-picker.nvim",

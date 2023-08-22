@@ -76,6 +76,8 @@ M.finding = function(opts)
       commit = "Telescope git_commits",
       bcommit = "Telescope git_bcommits",
       todo = "TodoTelescope",
+      glyph = "Telescope glyph",
+      yank_registers = "lua require 'telescope.builtin'.registers()",
     }
 
     local action = map_type_action[opts.key]

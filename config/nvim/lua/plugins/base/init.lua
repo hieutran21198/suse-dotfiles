@@ -163,6 +163,7 @@ local M = {
   },
   {
     "nvim-telescope/telescope.nvim",
+    cmd = { "Telescope" },
     dependencies = {
       { "kkharji/sqlite.lua" },
       { "prochri/telescope-all-recent.nvim" },

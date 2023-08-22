@@ -12,10 +12,10 @@ M.on_setup_wk = {
       },
       ["<esc>"] = { actions.magic_escape, "󰅖 Magic Escape" },
       ["<leader>"] = {
-
         ["y"] = {
           name = " Yank",
           a = { actions.yank { key = "all" }, " Yank File Content" },
+          r = { actions.finding { key = "yank_registers" }, " History" },
         },
         ["w"] = {
           name = " Pane",
@@ -45,14 +45,17 @@ M.on_setup_wk = {
         },
         ["u"] = {
           name = "󰏡 Utils",
-          i = { actions.pick_insert_icon, " Insert Icon" },
+          i = {
+            name = " Icons",
+            i = { actions.pick_insert_icon, " Insert Icon" },
+            g = { actions.finding { key = "glyph" }, "𝛲 Glyph" },
+          },
           c = { actions.toggle_center_cursor, "… Center Cursor" },
           u = { actions.lazy, " Lazy Package Manager" },
           C = { actions.colorizer { key = "toggle" }, " Toggle Colorizer" },
           t = {
             name = " Terminal",
             f = { actions.term { key = "float" }, " Center Terminal" },
-
             o = {
               actions.term { key = "horizontal" },
               " Horizontal Terminal",
@@ -152,13 +155,13 @@ M.on_setup_wk = {
             " Code Action",
           },
         },
+        ["p"] = { actions.open_command_center, "󰏡 Command Center" },
       },
       ["d"] = { '"_d', "󰅖 Delete Without Saving Content To Register" },
       ["f"] = {
         '"zy:Telescope live_grep default_text=<C-r>z<cr>',
         "󰈞 Find Current Text",
       },
-      ["p"] = { actions.open_command_center, "󰏡 Command Center" },
     },
     opts = {
       mode = "v",
