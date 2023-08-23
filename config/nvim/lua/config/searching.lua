@@ -31,7 +31,7 @@ M.telescope_config = function()
       },
       mappings = {
         n = {
-          ["q"] = require("telescope.acttions").close,
+          ["q"] = require("telescope.actions").close,
           ["<esc>"] = require("telescope.actions").close,
         },
         i = {
