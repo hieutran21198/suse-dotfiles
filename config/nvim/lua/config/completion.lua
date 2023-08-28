@@ -109,7 +109,7 @@ M.cmp_opts = function()
           return true
         end,
       },
-      { name = "luasnip", priority = 750 },
+      { name = "snippy", priority = 750 },
       { name = "buffer", priority = 500 },
       { name = "path", priority = 250 },
     },

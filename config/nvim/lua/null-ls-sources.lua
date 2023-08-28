@@ -19,7 +19,7 @@ M.bind_sources = function(builtins)
     diagnostics.luacheck,
 
     formatting.prettierd,
-    code_actions.eslint,
+    code_actions.eslint_d,
   }
 end
 

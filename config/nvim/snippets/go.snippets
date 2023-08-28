@@ -1,0 +1,75 @@
+snippet service " 1"
+	// Service represents the $1 service.
+	type Service struct {
+		repos *repo.Repositories
+
+		//
+	}
+
+	var (
+		_ types.$1Service = &Service{}
+	)
+
+	// New creates new instance of Service.
+	func New(repos *repo.Repositories) *Service {
+		s := &Service{
+			repos: repos,
+		}
+
+		return s
+	}
+
+snippet rqrp " 2"
+	type (
+		// $1Request is the input data for the business logic of $1.
+		$1Request struct {}
+
+		// $1Response is the output data for the business logic of $1.
+		$1Response struct{}
+	)
+
+snippet repo ""
+	// $1 is the model of $2.
+	type $1 struct {
+		Model
+	}
+
+	type $2Repository struct {
+		db *gorm.DB
+		CommonRepository[$1, $1Repository]
+	}
+
+	// $1Repository represents the repository of $1.
+	type $1Repository interface {
+		CommonRepository[$1, $1Repository]
+	}
+
+	// New$1Repository creates new $2 repository.
+	func New$1Repository(db *gorm.DB) $1Repository {
+		r := &$2Repository{
+			db,
+			NewCommonRepository[$1, $1Repository](db, New$1Repository),
+		}
+
+		return r
+	}
+snippet repo_only "-> 3"
+	type $1Repository struct {
+		db *gorm.DB
+		CommonRepository[$2, $2Repository]
+	}
+
+	// $2Repository represents the repository of $2.
+	type $2Repository interface {
+		CommonRepository[$2, $2Repository]
+	}
+
+	// New$2Repository creates new $1 repository.
+	func New$2Repository(db *gorm.DB) $2Repository {
+		r := &$1Repository{
+			db,
+			NewCommonRepository[$2, $2Repository](db, New$2Repository),
+		}
+
+		return r
+	}

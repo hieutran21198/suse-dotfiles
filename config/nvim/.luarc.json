@@ -1,7 +1,8 @@
 {
     "workspace.checkThirdParty": false,
     "diagnostics.disable": [
-        "deprecated"
+        "deprecated",
+        "different-requires"
     ],
     "diagnostics.globals": [
         "vim"

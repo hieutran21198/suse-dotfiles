@@ -1,6 +1,9 @@
 local M = {}
 
 M.telescope_config = function()
+  local lookup_definition = require "lookup-local.lookup.definition"
+  local lookup_item_definition = lookup_definition.item
+
   local telescope = require "telescope"
   local command_center = require "command_center"
 
@@ -53,6 +56,20 @@ M.telescope_config = function()
         },
         auto_replace_desc_with_cmd = false,
       },
+      lookup = {
+        converter_handler = nil,
+        strict = false,
+        combined_display_keys = true,
+        row_elements = {
+          lookup_item_definition.GROUP,
+          lookup_item_definition.DESC,
+        },
+        max_width = {
+          [lookup_item_definition.DESC] = 999,
+        },
+        separator = "",
+        prompt_title = " Look Up",
+      },
     },
   }
 
@@ -60,7 +77,7 @@ M.telescope_config = function()
 
   telescope.load_extension "command_center"
   telescope.load_extension "glyph"
-  -- telescope.load_extension "tailiscope"
+  -- telescope.load_extension "lookup"
   local all_recent = require "telescope-all-recent"
 
   all_recent.setup {
@@ -83,6 +100,13 @@ M.telescope_config = function()
       sorting = "recent", -- sorting: options: 'recent' and 'frecency'
     },
   }
+
+  local lookup_cmds = require "config.lookup_cmds"
+  local lookup_telescope = require "lookup-local.lookup.telescope"
+  lookup_telescope.setup {
+    strict = true,
+  }
+  require("lookup-local.lookup").add(lookup_cmds)
 end
 
 return M

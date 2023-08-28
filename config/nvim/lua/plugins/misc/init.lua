@@ -270,6 +270,11 @@ local M = {
       ]]
     end,
   },
+  {
+    "hieutran21198/lookup",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+  },
+  { "folke/neodev.nvim", opts = {} },
 }
 
 return M

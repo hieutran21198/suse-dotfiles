@@ -225,4 +225,6 @@ M.mason = function() cmd [[Mason]] end
 M.lazy = function() cmd [[Lazy]] end
 M.guest_indent = function() cmd "GuestIndent" end
 
+M.look_up = function() require("lookup-local.lookup.telescope").start_lookup() end
+
 return M

@@ -5,6 +5,7 @@ local actions = require "config.actions"
 M.on_setup_wk = {
   {
     mappings = {
+      ["<tab>"] = { actions.look_up, " lookup" },
       ["d"] = { '"_d', "󰅖 Delete Without Saving Content To Register" },
       ["q"] = {
         actions.buffer { key = "close_all_keep_current" },
