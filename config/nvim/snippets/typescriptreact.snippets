@@ -1,0 +1,140 @@
+snippet sc "styled components"
+	import styled from "@emotion/styled";
+	import { useState } from "react";
+
+	const s = {
+		$1: styled.div\`\`,
+	};
+
+	type $1Props = {};
+
+	type $1State = {};
+
+	const $1 = (props: $1Props) => {
+		const [state, setState] = useState<$1State>();
+
+		return <s.$1></s.$1>;
+	};
+
+	export default $1;
+
+snippet reducer "reducer template"
+	import { createSlice } from "@reduxjs/toolkit";
+
+	export namespace $1ReducerDTO {
+		export type State = {
+		};
+	}
+
+	const initialState: $1ReducerDTO.State = {};
+
+	const $2Slice = createSlice({
+		name: "$2",
+		initialState,
+		reducers: {},
+	});
+
+	export const $2Actions = {
+		...$2Slice.actions,
+	};
+
+	const $2Reducer = $2Slice.reducer;
+
+	export default $2Reducer;
+
+snippet store "init store"
+	import { configureStore } from "@reduxjs/toolkit";
+	import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+	import appReducer from "./reducer/app";
+
+	export const store = configureStore({
+		reducer: {
+			app: appReducer,
+		},
+	});
+
+	export type RootState = ReturnType<typeof store.getState>;
+	export type AppDispatch = typeof store.dispatch;
+
+	export const useAppDispatch: () => AppDispatch = useDispatch;
+	export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+snippet domc "dom component"
+	import { css } from '@emotion/react';
+	import styled from '@emotion/styled';
+	import { forwardRef, ForwardRefRenderFunction, useState } from 'react';
+
+	const s = {
+		$1: styled.$2(({ theme }) => css\`\`),
+	};
+
+	type $1Props = {} & React.ComponentProps<'$2'>;
+
+	type $1State = {};
+
+	const ForwardRef$1: ForwardRefRenderFunction<HTML$1Element, $1Props> = (
+		props,
+		ref,
+	) => {
+		const [state, setState] = useState<$1State>();
+
+		return <s.$1 {...props} ref={ref} />;
+	};
+
+	const $1 = forwardRef(ForwardRef$1);
+
+	export default $1;
+
+snippet sform "styled forward ref form"
+	import styled from '@emotion/styled';
+	import { forwardRef, ForwardRefRenderFunction, useState } from 'react';
+
+	const S = {
+		Form$1: styled.form\`\`,
+	};
+
+	type Form$1Props = {} & React.ComponentPropsWithoutRef<'form'>;
+
+	type Form$1State = {};
+
+	const ForwaredRefForm$1: ForwardRefRenderFunction<
+		HTMLFormElement,
+		Form$1Props
+	> = ({ ...formProps }, ref) => {
+		const [state, setState] = useState<Form$1State>();
+
+		return <S.Form$1 {...formProps} ref={ref}></S.Form$1>;
+	};
+
+	const Form$1 = forwardRef(ForwaredRefForm$1);
+
+	export default Form$1;
+
+snippet sb "story book template"
+	import { ThemeProvider } from "@emotion/react";
+	import type { Meta, StoryObj } from "@storybook/react";
+
+	import { $1 } from ".";
+
+	const meta: Meta<typeof $1> = {
+  	component: $1,
+	};
+
+	export default meta;
+
+	type Story = StoryObj<typeof $1>;
+
+	export const Default$1: Story = {
+  	args: {
+  	},
+	};
+
+	export const $1WithTheme: Story = {
+  	args: {
+  	},
+  	render: (args) => (
+    	<ThemeProvider theme={}>
+      	<$1 {...args} />
+    	</ThemeProvider>
+  	),
+	};

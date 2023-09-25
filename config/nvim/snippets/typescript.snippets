@@ -1,0 +1,41 @@
+
+snippet reducer "reducer template"
+	import { createSlice } from "@reduxjs/toolkit";
+
+	export namespace $1ReducerDTO {
+		export type State = {
+		};
+	}
+
+	const initialState: $1ReducerDTO.State = {};
+
+	const $2Slice = createSlice({
+		name: "$2",
+		initialState,
+		reducers: {},
+	});
+
+	export const $2Actions = {
+		...$2Slice.actions,
+	};
+
+	const $2Reducer = $2Slice.reducer;
+
+	export default $2Reducer;
+
+snippet store "init store"
+	import { configureStore } from "@reduxjs/toolkit";
+	import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+	import appReducer from "./reducer/app";
+
+	export const store = configureStore({
+		reducer: {
+			app: appReducer,
+		},
+	});
+
+	export type RootState = ReturnType<typeof store.getState>;
+	export type AppDispatch = typeof store.dispatch;
+
+	export const useAppDispatch: () => AppDispatch = useDispatch;
+	export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

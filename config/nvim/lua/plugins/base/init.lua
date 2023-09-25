@@ -21,16 +21,47 @@ local M = {
   {
     "nvim-tree/nvim-tree.lua",
     opts = {
+      hijack_cursor = true,
       sync_root_with_cwd = true,
       respect_buf_cwd = true,
       update_focused_file = {
         enable = true,
         update_root = false,
       },
+      view = {
+        adaptive_size = true,
+      },
+      renderer = {
+        full_name = true,
+        group_empty = true,
+        symlink_destination = false,
+        indent_markers = {
+          enable = true,
+        },
+        icons = {
+          git_placement = "signcolumn",
+          show = {
+            file = true,
+            folder = true,
+            folder_arrow = true,
+            git = true,
+          },
+        },
+      },
+      diagnostics = {
+        enable = true,
+        show_on_dirs = true,
+      },
+      filters = {
+        custom = {
+          "^.git$",
+        },
+      },
     },
     init = function()
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
+      vim.opt.termguicolors = true
     end,
     config = function(_, opts) require("nvim-tree").setup(opts) end,
   },
@@ -180,7 +211,6 @@ local M = {
   },
   {
     "RRethy/nvim-base16",
-    config = function() vim.cmd "colorscheme base16-gruvbox-dark-hard" end,
   },
   {
     "dcampos/nvim-snippy",
@@ -238,7 +268,6 @@ local M = {
 
       local nvim_lsp_configs = require "lspconfig"
       local user_opts = require("lsp-sources").config()
-      local default_opt = lsp_config.opt_builder()
 
       local utils = require "utils"
 
@@ -246,9 +275,11 @@ local M = {
         function(server_name)
           local user_opt = user_opts[server_name]
 
-          local opt = (user_opt ~= nil and not utils.empty_tbl(user_opt))
-              and user_opt
-            or default_opt
+          local opt = user_opt
+          if user_opts == nil or utils.empty_tbl(user_opt) then
+            opt = lsp_config.opt_builder()
+          end
+
           nvim_lsp_configs[server_name].setup(opt)
         end,
       }
@@ -260,43 +291,31 @@ local M = {
       local nls = require "null-ls"
 
       nls.setup {
-        sources = require("null-ls-sources").bind_sources(nls.builtins),
+        sources = require("null-ls-sources").bind_sources(
+          nls.builtins,
+          nls.methods
+        ),
         ensure_installed = { "stylua" },
       }
     end,
   },
   {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {},
+  },
+  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = true },
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
     opts = {
-      check_ts = true,
-      ts_config = { java = false },
-      fast_wrap = {
-        map = "<M-e>",
-        chars = { "{", "[", "(", '"', "'" },
-        pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-        offset = 0,
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
-        check_comma = true,
-        highlight = "PmenuSel",
-        highlight_grey = "LineNr",
+      options = {
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring()
+            or vim.bo.commentstring
+        end,
       },
     },
-    config = function(_, opts)
-      local npairs = require "nvim-autopairs"
-      npairs.setup(opts)
-
-      local cmp_status_ok, cmp = pcall(require, "cmp")
-      if cmp_status_ok then
-        cmp.event:on(
-          "confirm_done",
-          require("nvim-autopairs.completion.cmp").on_confirm_done {
-            text = false,
-          }
-        )
-      end
-    end,
   },
   {
     "akinsho/toggleterm.nvim",
@@ -327,25 +346,6 @@ local M = {
       close_on_exit = true,
       start_in_insert = true,
     },
-  },
-  {
-    "numToStr/Comment.nvim",
-    dependencies = {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-    },
-    config = function()
-      require("Comment").setup {
-        padding = true,
-        sticky = true,
-        ignore = nil,
-        toggler = { line = "gcc", block = "gbc" },
-        opleader = { line = "gc", block = "gb" },
-        extra = { above = "gcO", below = "gco", eol = "gcA" },
-        mappings = { basic = true, extra = false },
-        pre_hook = nil,
-        post_hook = nil,
-      }
-    end,
   },
 }
 

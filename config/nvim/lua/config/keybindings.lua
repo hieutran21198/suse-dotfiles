@@ -5,7 +5,6 @@ local actions = require "config.actions"
 M.on_setup_wk = {
   {
     mappings = {
-      ["<tab>"] = { actions.look_up, " lookup" },
       ["d"] = { '"_d', "󰅖 Delete Without Saving Content To Register" },
       ["q"] = {
         actions.buffer { key = "close_all_keep_current" },
@@ -133,7 +132,6 @@ M.on_setup_wk = {
             },
           },
         },
-        ["p"] = { actions.open_command_center, "󰏡 Command Center" },
         ["l"] = {
           name = " LSP",
           m = { actions.mason, " Mason Package Manager" },
@@ -156,7 +154,6 @@ M.on_setup_wk = {
             " Code Action",
           },
         },
-        ["p"] = { actions.open_command_center, "󰏡 Command Center" },
       },
       ["d"] = { '"_d', "󰅖 Delete Without Saving Content To Register" },
       ["f"] = {
@@ -187,7 +184,6 @@ M.on_setup_wk = {
 M.on_lsp_attach = function(_, bufnr)
   local lsp_keys = {
     name = " LSP",
-
     f = { actions.lsp "finder", "󰈞 Finder" },
     i = { actions.lsp("implementation", true), "󰈞 Implementation" },
     d = { actions.lsp "definition", "󰻫 Definition" },
@@ -199,7 +195,6 @@ M.on_lsp_attach = function(_, bufnr)
     o = { actions.lsp "outline", "󰈞 Symbols Outline" },
     L = { actions.lsp_restart, "󰜉 Restart LSP" },
     F = { actions.lsp("format", true), "󰓆 Format Current Buffer" },
-
     D = { actions.lsp("diag", true), "󰈞 Document Diagnostics" },
     W = { actions.lsp("w_diag", true), "󰈞 Workspace Diagnostics" },
   }

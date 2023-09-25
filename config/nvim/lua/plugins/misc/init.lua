@@ -5,41 +5,40 @@ local M = {
     dependencies = {
       { "nvim-treesitter/nvim-treesitter" },
     },
-    opts = {
-      finder = {
-        keys = {
-          expand_or_jump = "<cr>",
-          vsplit = "<c-v>",
-          split = "<c-x>",
-          quit = { "q", "<ESC>" },
-          close_in_preview = "<ESC>",
+    config = function()
+      local lspsaga = require "lspsaga"
+      lspsaga.setup {
+        finder = {
+          keys = {
+            expand_or_jump = "<cr>",
+            vsplit = "<c-v>",
+            split = "<c-x>",
+            quit = { "q", "<ESC>" },
+            close_in_preview = "<ESC>",
+          },
         },
-      },
-      definition = {
-        vsplit = "<C-v>",
-        split = "<C-x>",
-        quit = "q",
-      },
-      outline = {
-        win_position = "right",
-        win_with = "",
-        win_width = 40,
-        preview_width = 0.4,
-        show_detail = true,
-        auto_preview = true,
-        auto_refresh = true,
-        auto_close = true,
-        auto_resize = false,
-        custom_sort = nil,
-        keys = {
-          expand_or_jump = "<cr>",
+        definition = {
+          vsplit = "<C-v>",
+          split = "<C-x>",
           quit = "q",
         },
-      },
-    },
-    config = function(_, opts)
-      local lspsaga = require "lspsaga"
-      lspsaga.setup(opts)
+        outline = {
+          win_position = "right",
+          win_with = "",
+          win_width = 40,
+          preview_width = 0.4,
+          show_detail = true,
+          auto_preview = true,
+          auto_refresh = true,
+          auto_close = true,
+          auto_resize = false,
+          custom_sort = nil,
+          keys = {
+            expand_or_jump = "<CR>",
+            quit = "q",
+          },
+        },
+      }
     end,
   },
   {
@@ -270,11 +269,55 @@ local M = {
       ]]
     end,
   },
-  {
-    "hieutran21198/lookup",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-  },
   { "folke/neodev.nvim", opts = {} },
+  {
+    "Exafunction/codeium.vim",
+    config = function()
+      vim.keymap.set(
+        "i",
+        "<C-enter>",
+        function() return vim.fn["codeium#Accept"]() end,
+        { expr = true }
+      )
+
+      vim.keymap.set(
+        "i",
+        "<M-i>",
+        function() return vim.fn["codeium#Accept"]() end,
+        { expr = true }
+      )
+
+      vim.keymap.set(
+        "i",
+        "<M-j>",
+        function() return vim.fn["codeium#CycleCompletions"](1) end,
+        { expr = true }
+      )
+
+      vim.keymap.set(
+        "i",
+        "<M-k>",
+        function() return vim.fn["codeium#CycleCompletions"](-1) end,
+        { expr = true }
+      )
+    end,
+  },
+  {
+    "ray-x/go.nvim",
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()',
+    dependencies = {
+      { "rafaelsq/nvim-goc.lua" },
+    },
+    config = function()
+      require("go").setup()
+
+      require("nvim-goc").setup {
+        verticalSplit = false,
+      }
+    end,
+  },
 }
 
 return M

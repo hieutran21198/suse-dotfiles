@@ -50,13 +50,13 @@ local options = {
     history = 1000, -- Number of commands to remember in a history table (per buffer).
     swapfile = false, -- Ask what state to recover when opening a file that was not saved.
     wrap = true, -- Disable wrapping of lines longer than the width of window.
-    colorcolumn = "80", -- PEP8 like character limit vertical bar.
     mouse = "a", -- Enable mouse support.
     mousescroll = "ver:1,hor:0", -- Disables hozirontal scroll in neovim.
     guicursor = "n:blinkon200,i-ci-ve:ver25", -- Enable cursor blink.
     autochdir = false, -- Use current file dir as working dir (See project.nvim).
     sidescrolloff = 8, -- Same but for side scrolling.
     selection = "old", -- Don't select the newline symbol when using <End> on visual mode.
+    scrolloff = 1000,
   },
   g = {
     mapleader = " ", -- Set leader key.

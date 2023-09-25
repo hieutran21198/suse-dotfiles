@@ -10,7 +10,7 @@ M.null_ls_on_attach = function(client, bufnr)
       group = M.lsp_formatting_augroup,
       buffer = bufnr,
     }
-    vim.api.nvim_create_autocmd("BufWritePre", {
+    vim.api.nvim_create_autocmd("BufWritePost", {
       group = M.lsp_formatting_augroup,
       buffer = bufnr,
       callback = function()
@@ -25,18 +25,12 @@ end
 
 M.common_on_attach = function(client, bufnr)
   local keybindings = require "config.keybindings"
-  local command_center = require "command_center"
   local wk = require "which-key"
 
   local keybinding_definitions = keybindings.on_lsp_attach(client, bufnr)
   for _, definition in ipairs(keybinding_definitions) do
     wk.register(definition.mappings, definition.opts)
   end
-
-  local commands =
-    require("config.commands").make_commands(keybinding_definitions)
-
-  command_center.add(commands, { command_center.mode.ADD })
 
   M.null_ls_on_attach(client, bufnr)
 end

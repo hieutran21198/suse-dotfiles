@@ -56,7 +56,7 @@ M.cmp_opts = function()
     preselect = cmp.PreselectMode.None,
     formatting = {
       fields = { "kind", "abbr", "menu" },
-      format = lspkind_status_ok and lspkind.cmp_format(base.lspkind) or nil,
+      -- format = lspkind_status_ok and lspkind.cmp_format(base.lspkind) or nil,
     },
     snippet = {
       expand = function(args)

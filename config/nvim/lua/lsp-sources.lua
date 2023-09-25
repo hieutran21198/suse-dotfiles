@@ -2,6 +2,10 @@ local M = {}
 
 M.config = function()
   local server_configs = {
+    golangci_lint_ls = {},
+    gopls = {},
+
+    eslint = {},
     tsserver = {},
     jsonls = {},
     yamlls = {},

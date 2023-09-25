@@ -1,5 +1,5 @@
 local settings = {
-  center_cursor = false,
+  center_cursor = true,
 }
 
 local api = vim.api
@@ -112,7 +112,7 @@ end
 
 M.lsp = function(action_name, native)
   local map_lsp_saga = {
-    ["finder"] = "lsp_finder",
+    ["finder"] = "finder",
     ["outline"] = "outline",
     ["rename"] = "rename",
     ["code_action"] = "code_action",
@@ -224,7 +224,5 @@ M.spectre = function() cmd "Spectre" end
 M.mason = function() cmd [[Mason]] end
 M.lazy = function() cmd [[Lazy]] end
 M.guest_indent = function() cmd "GuestIndent" end
-
-M.look_up = function() require("lookup-local.lookup.telescope").start_lookup() end
 
 return M
