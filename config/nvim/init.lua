@@ -1,8 +1,8 @@
 require "config.options"
-require "package-manager"
 
 if vim.g.vscode then
 else
+  require "package-manager"
   local utils = require "utils"
 
   local plugins = utils.combine_plugins(
@@ -21,5 +21,6 @@ else
 
   require "config.auto_cmds"
 
-  vim.cmd [[colorscheme base16-tokyo-night-terminal-dark]]
+  vim.cmd [[colorscheme base16-gruvbox-dark-hard]]
 end
+

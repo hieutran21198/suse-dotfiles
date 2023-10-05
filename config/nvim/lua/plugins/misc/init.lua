@@ -87,29 +87,6 @@ local M = {
     end,
   },
   {
-    "Zeioth/markmap.nvim",
-    build = "pnpm install -g markmap-cli",
-    cmd = { "MarkmapOpen", "MarkmapSave", "MarkmapWatch", "MarkmapWatchStop" },
-    config = function(_, opts) require("markmap").setup(opts) end,
-  },
-  {
-    "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    cmd = {
-      "MarkdownPreview",
-      "MarkdownPreviewStop",
-      "MarkdownPreviewToggle",
-    },
-    build = "cd app && yarn install",
-  },
-  {
-    "mrjones2014/smart-splits.nvim",
-    opts = {
-      ignored_filetypes = { "nofile", "quickfix", "qf", "prompt" },
-      ignored_buftypes = { "nofile" },
-    },
-  },
-  {
     "nvim-pack/nvim-spectre",
     build = "./build.sh nvim-oxi",
     cmd = "Spectre",

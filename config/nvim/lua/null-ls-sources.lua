@@ -34,10 +34,6 @@ M.bind_sources = function(builtins, methods)
     diagnostics.markdownlint,
     formatting.markdownlint,
 
-
-    -- proto
-    diagnostics.protoc_gen_lint,
-
     -- aws cloudformation
     diagnostics.cfn_lint,
 
@@ -52,9 +48,6 @@ M.bind_sources = function(builtins, methods)
     diagnostics.fish,
     formatting.fish_indent,
 
-    -- css, sass, scss
-    diagnostics.stylelint,
-
     -- terraform
     diagnostics.terraform_validate,
     diagnostics.tfsec,
@@ -65,9 +58,6 @@ M.bind_sources = function(builtins, methods)
 
     --shell
     formatting.shellharden,
-
-    --sql
-    formatting.sqlformat,
   }
 end
 
