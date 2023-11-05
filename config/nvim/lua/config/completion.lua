@@ -10,6 +10,7 @@ M.cmp_opts = function()
     winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
   }
 
+
   local cmp_select_next_handler = function(fallback)
     if cmp.visible() then
       cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
@@ -56,7 +57,9 @@ M.cmp_opts = function()
     preselect = cmp.PreselectMode.None,
     formatting = {
       fields = { "kind", "abbr", "menu" },
-      -- format = lspkind_status_ok and lspkind.cmp_format(base.lspkind) or nil,
+      format = lspkind_status_ok and lspkind.cmp_format {
+        mode = "symbol_text",
+      } or nil,
     },
     snippet = {
       expand = function(args)
@@ -98,6 +101,7 @@ M.cmp_opts = function()
       ["<S-Tab>"] = cmp.mapping(cmp_select_previous_handler, { "i", "s" }),
     },
     sources = cmp.config.sources {
+      { name = "codeium", priority = 1001 },
       {
         name = "nvim_lsp",
         priority = 1000,
@@ -112,6 +116,10 @@ M.cmp_opts = function()
       { name = "snippy", priority = 750 },
       { name = "buffer", priority = 500 },
       { name = "path", priority = 250 },
+    },
+
+    experimental = {
+      ghost_text = { hlgroup = "Comment" },
     },
   }
 end

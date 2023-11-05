@@ -1,5 +1,11 @@
 local M = {
   {
+    "onsails/lspkind.nvim",
+    dependencies = {
+      { "hrsh7th/nvim-cmp" },
+    },
+  },
+  {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
     dependencies = {
@@ -7,20 +13,22 @@ local M = {
     },
     config = function()
       local lspsaga = require "lspsaga"
+      -- https://nvimdev.github.io/lspsaga
       lspsaga.setup {
         finder = {
           keys = {
-            expand_or_jump = "<cr>",
+            toggle_or_open = "<cr>",
             vsplit = "<c-v>",
             split = "<c-x>",
             quit = { "q", "<ESC>" },
-            close_in_preview = "<ESC>",
+            close = "<ESC>",
           },
         },
         definition = {
           vsplit = "<C-v>",
           split = "<C-x>",
           quit = "q",
+          close = "<ESC>",
         },
         outline = {
           win_position = "right",
@@ -34,8 +42,9 @@ local M = {
           auto_resize = false,
           custom_sort = nil,
           keys = {
-            expand_or_jump = "<CR>",
+            toggle_or_jump = "<CR>",
             quit = "q",
+            jump = "e"
           },
         },
       }
@@ -248,36 +257,12 @@ local M = {
   },
   { "folke/neodev.nvim", opts = {} },
   {
-    "Exafunction/codeium.vim",
-    config = function()
-      vim.keymap.set(
-        "i",
-        "<C-enter>",
-        function() return vim.fn["codeium#Accept"]() end,
-        { expr = true }
-      )
-
-      vim.keymap.set(
-        "i",
-        "<M-i>",
-        function() return vim.fn["codeium#Accept"]() end,
-        { expr = true }
-      )
-
-      vim.keymap.set(
-        "i",
-        "<M-j>",
-        function() return vim.fn["codeium#CycleCompletions"](1) end,
-        { expr = true }
-      )
-
-      vim.keymap.set(
-        "i",
-        "<M-k>",
-        function() return vim.fn["codeium#CycleCompletions"](-1) end,
-        { expr = true }
-      )
-    end,
+    "Exafunction/codeium.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function() require("codeium").setup {} end,
   },
   {
     "ray-x/go.nvim",

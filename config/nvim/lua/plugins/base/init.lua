@@ -213,6 +213,9 @@ local M = {
     "RRethy/nvim-base16",
   },
   {
+    "ray-x/aurora",
+  },
+  {
     "dcampos/nvim-snippy",
     opts = {},
     config = function(_, opts) require("snippy").setup(opts) end,

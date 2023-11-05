@@ -111,3 +111,18 @@ snippet inout "input output dto"
 		$1Output struct {
 		}
 	)
+
+snippet b_repo "repo"
+	var (
+		_ repo.$1s = (*$1s)(nil)
+	)
+
+	// $1s repository.
+	type $1s struct {
+		*Repo[model.$1]
+	}
+
+	// New$1s creates new $1s instance.
+	func New$1s(db *gorm.DB) *$1s {
+		return &$1s{NewRepo[model.$1](db)}
+	}

@@ -9,6 +9,7 @@ M.config = function()
     tsserver = {},
     jsonls = {},
     yamlls = {},
+    graphql = {},
     lua_ls = {
       settings = {
         Lua = {
